@@ -1,16 +1,20 @@
 git init 建立新的本地仓库
 git add [] 添加文件或者文件夹
-git add . 加入全不文件
+git add . 加入全部文件
 git commit - 将暂存区内容添加到仓库
 git commit -m 加描述 提交变动
+git reset --hard commit  本地回退commit 看不到commit之前的版本
+git reset --soft HEAD~N  回退n个版本
+git push origin main(git名字) -- force 将远端仓库也代码也回退到本地状态
 git status 查看仓库当前状态 显示有变更的文件
 git log 查看commit记录
 git push 将本地commit提交到仓库
 git push origin [branch_name] 将本地commit提交到固定分支
 git branch 查看分支
 git branch [branch_name] 建立分支
-git checkout [branch_name] 取出指定分支
-git checkout -b [branch_n'me]
+git checkout [branch_name] 切换分支
+git checkout -b [branch_n'me] 到指定分支
+git merge [name] 合并代码
 git pull 将仓库代码下拉到本地
 git clone 下载代码
 git reset --D [branch_name] 删除分支，需要先切换分支

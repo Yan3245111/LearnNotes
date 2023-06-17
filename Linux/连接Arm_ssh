@@ -8,7 +8,6 @@ cat log_000 执行的命令都存储在这个里面
 
 文件更改
 一共三个文件
-传进去之后给文件加执行权限 chomd +x [file name]
 1-自启动文件
     笔记本存储路径 Desktop/up/v1（旧） | v2（新）
     arm存储路径 /run/media/xxxxxp1
@@ -19,7 +18,6 @@ cat log_000 执行的命令都存储在这个里面
     把可执行文件拷贝到下载里
     去智铭桌面打开一个arm的连接软件，直接双击192.9.16.1，root，cd 到 xxxxxp2文件夹下，左右点击follow可以看见文件夹下所有文件
     直接把笔记本下载里的可执行文件扔进去即可
-    .\2u
 3-scpi.csv
     CoreCode/scpi.csv
     操作同上，扔到xxxxxp2文件夹下
