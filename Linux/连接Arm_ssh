@@ -21,3 +21,7 @@ cat log_000 执行的命令都存储在这个里面
 3-scpi.csv
     CoreCode/scpi.csv
     操作同上，扔到xxxxxp2文件夹下
+
+4-moba密码不正确 需要管理员权限
+    去csdn下载resetpassword的官方软件
+    放入moba文件夹下，执行此软件即可
