@@ -1,3 +1,4 @@
+
 a = 2e14 + 10
 print(float(a/10000))
 '''
@@ -21,4 +22,3 @@ void _ttywrch(int ch)
 https://blog.csdn.net/liu8xu88/article/details/120975004
 
 '''
-

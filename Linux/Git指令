@@ -18,3 +18,5 @@ git merge [name] 合并代码
 git pull 将仓库代码下拉到本地
 git clone 下载代码
 git reset --D [branch_name] 删除分支，需要先切换分支
+
+python3 -m PyQt5.uic.pyuic -o UI.py UI.ui
