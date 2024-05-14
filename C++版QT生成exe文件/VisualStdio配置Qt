@@ -1,0 +1,11 @@
+* 参考连接：https://blog.csdn.net/weixin_43763292/article/details/117873186
+
+1-下载qt，安装MSVC2017 32和64bit版本
+2-下载VS
+3-打开VS ->扩展和更新 -> 联机 搜索QT Visual Stdio Tools -> 下载 ->重启
+4-在菜单栏可以看到QT VS Tools -> Qt Options -> 添加Qmake路径，一般在QT\Qt5.12\5.12.9\bin\里面，添加2017和2017_64即可
+5-点击文件 -> 新建 -> 工程 -> 新建 -> qt -> qt widget application -> next -> finished
+6-启动工程启动不了，查看最先面报错信息，2017报的是无法找到windows SDK8.1，可以在visual 启动选项点击修改
+
+7-打开现有qt工程 -> QT VS Tools -> open qt project file
+    报错：error reading vs project setting  解决办法：更换qmake路径到64位即可

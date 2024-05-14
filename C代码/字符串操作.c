@@ -24,4 +24,24 @@ if (res) {
 // 字符串copy
 strcpy(buf, text);  // "1234"，如果之前有数据会被覆盖
 
-//
+//strtok 分隔符
+char a[20] = "123 - 456 - 789";
+char * ton;
+int a, b;
+ton = strtok(a, "-");
+a = atoi(ton);      // 123
+b = atoi(strtok(NULL, "-"));  //456
+while (ton != NULL) {
+    printf("%s\n", ton);
+    ton = strtok(NULL, "-");
+}
+
+
+//strtoul(long)  strtoull(long long)
+// 分割字符串里的数字和字符串
+    char buf[100] = "123456111111111 hello qweqweqw";
+    int64_t a;
+    char *p;
+    a = strtoull(buf, &p, 10);  // 以十进制进行读取
+    printf("%lld\n", a);
+    printf("%s\n", p);
