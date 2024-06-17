@@ -39,9 +39,24 @@ while (ton != NULL) {
 
 //strtoul(long)  strtoull(long long)
 // 分割字符串里的数字和字符串
-    char buf[100] = "123456111111111 hello qweqweqw";
-    int64_t a;
-    char *p;
-    a = strtoull(buf, &p, 10);  // 以十进制进行读取
-    printf("%lld\n", a);
-    printf("%s\n", p);
+char buf[100] = "123456111111111 hello qweqweqw";
+int64_t a;
+char *p;
+a = strtoull(buf, &p, 10);  // 以十进制进行读取
+printf("%lld\n", a);  // 123456111111111
+printf("%s\n", p);    // hello qweqweqw
+
+
+// sscanf  with fscanf
+// sscanf 可以把空格两边的数据分离出来 例如
+char buf[10] = "hh= 123";
+char buf1[10];
+int num;
+sscanf(buf, "%s %d", buf1, &num);
+printf("%s %d\n", buf1, num);  // hh= 123
+// 也可以用于数据分离，比如
+sscanf(buf, "hh= %d", &num);  // 123
+
+// fscanf 是从文件读取数据\n结尾，然后可以将数据分离
+FILE *fp = fopen(PATH, "r");
+fscanf(fp, "hh=%d", &num);  // 123

@@ -47,3 +47,9 @@ uint64_t get_file_info(char *filepath, char *modifiy) {
     }
     return file_size;
 }
+
+// flock 检测文件是否上锁
+int lock_fd = open("/.lock", O_CREAT | O_RDWR, 0666);
+int rc = flock(lock_fd, LOCK_EX | LOCK_NB); // flock加锁，LOCK_EX -- 排它锁；LOCK_NB -- 非阻塞模式
+                                            // LOCK_EX | LOCK_NB：非阻塞监听文件是否上锁，如果已经上锁，返回-1，
+                                            // 如果未上锁，则上锁且返回0。只能在linux下使用
