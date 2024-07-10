@@ -1,0 +1,55 @@
+1-LVGL驱动（官方下载）
+2-TOUCH屏驱动（正点原子自带）
+3-LCD驱动（正点原子自带）
+
+4-修改lv_port_disp.c 中 void disp_init 函数，将lcd初始化添加在里面
+static void disp_init(void)
+{
+    /*You code here*/
+    lcd_init();         /* 初始化LCD */
+    lcd_display_dir(1); /* 设置横屏 */
+}
+
+5-修改lv_port_indev.c 中 touchpad_init 函数，将touch屏初始化添加在里面  lvgl自带触摸屏，按键，鼠标等回调都在此文件中，优先级不用配置
+static void touchpad_init(void) {
+	/*Your code comes here*/
+	tp_dev.init();
+}
+
+6-在lv_port_indev.c 中 keypad_read 函数添加button读取
+static void keypad_read(lv_indev_drv_t *indev_drv, lv_indev_data_t *data)
+{
+    uint32_t act_key = keypad_get_key();
+    switch (act_key) {
+    case 0xff:
+        break;
+    default:
+        break;
+    }
+}
+
+7-使用CubeIDE配置freeRTOS 一共开启3个任务调度  数字越大，优先级越高
+
+typedef enum  {
+  osPriorityIdle          = -3,          ///< priority: idle (lowest)
+  osPriorityLow           = -2,          ///< priority: low
+  osPriorityBelowNormal   = -1,          ///< priority: below normal
+  osPriorityNormal        =  0,          ///< priority: normal (default)
+  osPriorityAboveNormal   = +1,          ///< priority: above normal
+  osPriorityHigh          = +2,          ///< priority: high
+  osPriorityRealtime      = +3,          ///< priority: realtime (highest)
+  osPriorityError         =  0x84        ///< system cannot determine priority or thread has illegal priority
+} osPriority;
+
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);  // 系统任务 0 里面什么都没跑，优先级最高
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  /* definition and creation of task_uart */
+  osThreadDef(task_uart, StartTaskUart, osPriorityLow, 0, 128);         // 串口任务 -2  串口dma接收标志检测
+  task_uartHandle = osThreadCreate(osThread(task_uart), NULL);
+
+  /* definition and creation of task_lvgl */
+  osThreadDef(task_lvgl, StartTaskLvgl, osPriorityBelowNormal, 0, 1024); // LVGL任务 -1
+  task_lvglHandle = osThreadCreate(osThread(task_lvgl), NULL);
+
+8-串口中断 DMA中断，配置等级 在开启freeRTOS以后， DMA和串口优先级最大可配置为5，默认为5，数字越小，优先级越高
