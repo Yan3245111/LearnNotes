@@ -26,5 +26,6 @@
           pcielib_global.h 
 * 然后pcielib.h和cpp文件重新声明定义函数，示例在新h和cpp文件夹下面，声明和定义需要和依赖里h文件的函数加参数一致
 * 点击bulid编译，在build/debug里找到生成的dll和lib，使用vs交叉编译重新抓取看里面的函数是否正常
+* 把生成的dll和依赖的dll放到同文件目录下，因为新dll需要依赖之前的dll才可以正常通信
 * 测试：使用CPID_DLL通信.py 测试打开关闭板子和寄存器读写
 * 测试2：使用DLL通信完成测试用例.py 测试DMA等

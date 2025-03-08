@@ -1,7 +1,10 @@
 import ctypes
+import os
 
+
+path = os.path.abspath("PCIeLib.dll")
 # 加载 DLL
-pcie_dll = ctypes.CDLL("MyWrapper.dll")
+pcie_dll = ctypes.CDLL(path)
 
 # 定义函数参数和返回类型
 pcie_dll.ComuPCIe_new.argtypes = [ctypes.c_uint]
@@ -22,8 +25,8 @@ pcie_dll.ComuPCIe_writeReg.restype = ctypes.c_int
 pcie_dll.ComuPCIe_readReg.argtypes = [ctypes.c_void_p, ctypes.c_ulong, ctypes.POINTER(ctypes.c_int), ctypes.c_uint]
 pcie_dll.ComuPCIe_readReg.restype = ctypes.c_int
 
-pcie_dll.ComuPCIe_cardType.argtypes = [ctypes.c_void_p]
-pcie_dll.ComuPCIe_cardType.restype = ctypes.c_int
+# pcie_dll.ComuPCIe_cardType.argtypes = [ctypes.c_void_p]
+# pcie_dll.ComuPCIe_cardType.restype = ctypes.c_int
 
 pcie_dll.ComuPCIe_reset.argtypes = [ctypes.c_void_p]
 pcie_dll.ComuPCIe_reset.restype = None
