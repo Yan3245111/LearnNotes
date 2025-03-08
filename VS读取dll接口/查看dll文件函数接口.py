@@ -1,6 +1,10 @@
 # 安装vs
-# 在搜索输入vs找到vs2017或者相对应版本的交叉编译器 打开，输入以下命令
+# 在搜索输入vs找到vs2017或者相对应版本的交叉编译器 打开，输入以下命令，同样适用于lib文件
 # dumpbin /exports your_library.dll
+# dumpbin /dependents your_library.dll  查看依赖
+# dumpbin /imports  your_library.dll  查看引用
+# dumpbin /symbols your_library.dll (.lib)     查看符号
+
 # WdfCoInstaller01009.dll 接口函数
 #           1    0 00009C78 WdfCoInstaller
 #           2    1 0000A110 WdfPostDeviceInstall
@@ -36,9 +40,10 @@ import ctypes
 import os
 
 # 加载 DLL 文件
-dll_path = os.path.abspath("ComuPCIe.dll")
+dll_path = os.path.abspath("WdfCoInstaller01009.dll")
 driver = ctypes.CDLL(dll_path)
-driver.writeReg(0x01, 1)
+driver.WdfCoInstaller()
+
 
 # 定义函数原型 (根据 DLL 的实际函数签名)
 # driver.DeviceRead.argtypes = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int]

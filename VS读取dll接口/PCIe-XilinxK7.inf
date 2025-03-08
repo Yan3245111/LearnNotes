@@ -1,0 +1,138 @@
+;/*++
+;
+;Copyright (c) Hwa Create technology Corporation LTD.  All rights reserved.
+;
+;   THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
+;   KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+;   IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
+;   PURPOSE.
+;
+;Module Name:
+;
+;    PCIe-XilinxK7.INF
+;
+;Abstract:
+;    INF file for the PCIe-XilinxK7 driver installation for Windows XP and Windows 7 (x86 and x64)..
+;
+;--*/
+
+[Version]
+Signature = "$WINDOWS NT$"
+Class = %ClassName%
+;ClassGuid = {78A1C341-4539-11d3-B88D-00C04FAD5171}
+ClassGuid =  {839B3ED5-562A-494d-AED0-1CD0F391AA88}
+Provider = %SoftMfg%
+DriverVer=05/11/2018,6.1.7600.16385
+;CatalogFile = KmdfSamples.cat
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+; ================= Class section ======================
+
+[ClassInstall32]
+Addreg = PCIe-XilinxK7.ClassReg     
+
+[PCIe-XilinxK7.ClassReg]
+HKR,,,0,%ClassName%
+HKR,,Icon,,-5
+HKR,,DeviceCharacteristics,0x10001,0x100     ;Use same security checks on relative opens
+HKR,,Security,,"D:P(A;;GA;;;SY)(A;;GA;;;BA)" ;Allow generic all access to system and built-in Admin. 
+
+; ================= Device Install section =============
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[Manufacturer]
+%HwMfg% = Hwacreate,NTx86,NTamd64
+
+[SourceDisksFiles]
+PCIe-XilinxK7.sys=1
+
+[SourceDisksNames]
+1=%DISK_NAME%,
+
+; For Win2K
+[Hwacreate]
+; DisplayName                            Section                   DeviceId
+; -----------                            -------                   --------
+%PCI\VEN_10EE&DEV_7024.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7024
+%PCI\VEN_10EE&DEV_7224.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7224
+%PCI\VEN_10EE&DEV_7124.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7124
+%PCI\VEN_10EE&DEV_7506.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7506
+
+; For X32
+[Hwacreate.NTx86]
+; DisplayName                            Section                   DeviceId
+; -----------                            -------                   --------
+%PCI\VEN_10EE&DEV_7024.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7024
+%PCI\VEN_10EE&DEV_7224.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7224
+%PCI\VEN_10EE&DEV_7124.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7124
+%PCI\VEN_10EE&DEV_7506.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7506
+
+; For X64
+[Hwacreate.NTamd64]
+; DisplayName                            Section                   DeviceId
+; -----------                            -------                   --------
+%PCI\VEN_10EE&DEV_7024.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7024
+%PCI\VEN_10EE&DEV_7224.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7224
+%PCI\VEN_10EE&DEV_7124.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7124
+%PCI\VEN_10EE&DEV_7506.DRVDESC%   =   PCIe-XilinxK7_Inst,     PCI\VEN_10EE&DEV_7506
+
+[PCIe-XilinxK7_Inst.NT]
+CopyFiles=PCIe-XilinxK7.CopyFiles
+
+[PCIe-XilinxK7.CopyFiles]
+PCIe-XilinxK7.sys
+
+[PCIe-XilinxK7_Inst.NT.Services]
+AddService=PCIe-XilinxK7,0x00000002,PCIe-XilinxK7_Service 
+
+[PCIe-XilinxK7_Service]
+DisplayName    = %SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL                           
+ServiceBinary  = %12%\PCIe-XilinxK7.sys                            
+AddReg         = PCIe-XilinxK7_Parameters_AddReg
+
+; ================= Coinstaller installation ============================
+
+[DestinationDirs]
+CoInstaller_CopyFiles = 11
+
+[PCIe-XilinxK7_Inst.NT.CoInstallers]
+AddReg=CoInstaller_AddReg
+CopyFiles=CoInstaller_CopyFiles
+
+[CoInstaller_CopyFiles]
+WdfCoInstaller01009.dll
+
+[SourceDisksFiles]
+WdfCoInstaller01009.dll=1 ; make sure the number matches with SourceDisksNames
+
+[CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01009.dll,WdfCoInstaller"
+
+[PCIe-XilinxK7_Inst.NT.Wdf]
+KmdfService = PCIe-XilinxK7, PCIe-XilinxK7_wdfsect
+
+[PCIe-XilinxK7_wdfsect]
+KmdfLibraryVersion = 1.9
+
+; ================= Strings ============================
+
+[Strings]
+SoftMfg = "RadSim"
+HwMfg   = "RadSim"
+
+PCI\VEN_10EE&DEV_7024.DRVDESC = "RadSim  (D22)"
+PCI\VEN_10EE&DEV_7224.DRVDESC = "RadSim  (D21)"
+PCI\VEN_10EE&DEV_7124.DRVDESC = "RadSim  (D23)"
+PCI\VEN_10EE&DEV_7506.DRVDESC = "RadSim  (D20)"
+
+ClassName = "PCIe-XilinxK7"
+SvcDesc   = "PCIe-XilinxK7"
+
+DISK_NAME = "HwaCreate PCIe-XilinxK7 Driver Install Disk"
