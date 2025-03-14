@@ -14,9 +14,7 @@ void main(void)
     get_num();
 }
 
-
 // * 和 &的区别  *代表的指向地址的内容， &表示的是地址
-
 void compare_&*(void) {
     int a = 1;
     int *b = &a;
