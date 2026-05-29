@@ -7,7 +7,7 @@ char * text1(void) {
 
 // 正确方式1：使用malloc拷贝到堆，但是需要释放内存
 char * text2(void) {
-    char text[100];
+    char *text;
     text = (char *)malloc(100);
     sprintf(text, "%s\n", "123");
     return text;
